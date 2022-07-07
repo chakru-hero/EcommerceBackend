@@ -1,22 +1,28 @@
 package com.portfolio.chakru.models;
 
-import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
-public class UserModel implements Serializable {
+public class UserModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, updatable = false)
 	private Long id;
+	@Column(unique = true)
 	private String username;
+	@Column(unique = true)
 	private String email;
 	private String password;
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Collection<UserGroupModel> userGroup;
 	private String imageUrl;
 
 	public Long getId() {
@@ -25,6 +31,14 @@ public class UserModel implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Collection<UserGroupModel> getUserGroup() {
+		return userGroup;
+	}
+
+	public void setUserGroup(Collection<UserGroupModel> userGroup) {
+		this.userGroup = userGroup;
 	}
 
 	public String getUsername() {

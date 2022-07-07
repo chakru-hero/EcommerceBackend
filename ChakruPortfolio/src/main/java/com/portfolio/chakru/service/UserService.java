@@ -1,7 +1,6 @@
 package com.portfolio.chakru.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.portfolio.chakru.models.UserModel;
 
@@ -16,5 +15,9 @@ public interface UserService {
 	UserModel addUser(UserModel userModel);
 
 	List<UserModel> findAllUsers();
+	
+	List<UserModel> findUserModelByUserGroup (String usergroup);
+	
+	void assignRoleToUser(String username,String usergroup);
 	
 }

@@ -1,16 +1,19 @@
 package com.portfolio.chakru.models;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class ProductModel implements Serializable{
+public class ProductModel{
 
 	@Id
 	@Column	(nullable = false , updatable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	@Column(unique=true)
 	private String code;
 	private String name;
 	private String description;

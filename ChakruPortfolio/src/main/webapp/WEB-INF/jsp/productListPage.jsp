@@ -6,7 +6,7 @@
 
 <c:forEach var="product" items="${productModel}">
 <br>
-<div style="text-align:center"><mytags:productdetails productdetails="${product}"/></div>
+<div style="text-align:center;"><mytags:productdetails productdetails="${product}"/></div>
 <br>
 </c:forEach>
 

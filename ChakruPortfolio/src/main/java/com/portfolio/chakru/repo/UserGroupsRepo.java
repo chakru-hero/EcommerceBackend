@@ -6,4 +6,5 @@ import com.portfolio.chakru.models.UserGroupModel;
 
 public interface UserGroupsRepo extends JpaRepository<UserGroupModel, String> {
 
+	UserGroupModel findUserGroupModelByName(String name);
 }
