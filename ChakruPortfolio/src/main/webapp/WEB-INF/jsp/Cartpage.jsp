@@ -1,16 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="mytags" tagdir="/WEB-INF/tags" %>
-<mytags:header/>
 
-
-<c:forEach var="product" items="${productModel}">
+<c:forEach var="product" items="${cart.products}">
 <br>
 <div style="text-align:center;"><mytags:productdetails productdetails="${product}"/></div>
 <br>
-<div style="text-align:center;"><button>Add to Cart</button></div>
-<br>
+
 </c:forEach>
-
-
-<div class="footer"><mytags:footer/></div>

@@ -12,8 +12,6 @@ public class ProductModel{
 	@Id
 	@Column	(nullable = false , updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	@Column(unique=true)
 	private String code;
 	private String name;
 	private String description;
