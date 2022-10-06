@@ -16,6 +16,7 @@ import com.portfolio.chakru.service.CartService;
 import com.portfolio.chakru.service.ProductService;
 import com.portfolio.chakru.service.UserService;
 
+@SuppressWarnings("unused")
 @Controller
 @RequestMapping("/p")
 public class ProductPageController {
