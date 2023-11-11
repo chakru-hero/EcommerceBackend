@@ -9,5 +9,7 @@ public interface CartService {
 	void addToCart(ProductModel productModel , UserModel user);
 	
 	void removeFromCart(ProductModel productModel, UserModel user);
+
+	void clearCart(UserModel userModel);
 	
 }

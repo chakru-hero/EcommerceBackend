@@ -1,17 +1,15 @@
 package com.portfolio.chakru.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.portfolio.chakru.models.CartModel;
 import com.portfolio.chakru.models.ProductModel;
 import com.portfolio.chakru.models.UserModel;
 import com.portfolio.chakru.repo.CartRepo;
 import com.portfolio.chakru.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -55,5 +53,12 @@ public class CartServiceImpl implements CartService{
 	    cartModel.setProducts(products);
 		cartModel.setUser(user);
 		return cartModel;
+	}
+
+	@Override
+	public void clearCart(UserModel userModel){
+		CartModel existingcart =  cartRepo.findCartModelByUser(userModel);
+		existingcart.setProducts(null);
+		cartRepo.save(existingcart);
 	}
 }

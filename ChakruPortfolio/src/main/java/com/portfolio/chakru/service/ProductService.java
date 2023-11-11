@@ -1,8 +1,8 @@
 package com.portfolio.chakru.service;
 
-import java.util.List;
-
 import com.portfolio.chakru.models.ProductModel;
+
+import java.util.List;
 
 public interface ProductService {
 
@@ -11,6 +11,10 @@ public interface ProductService {
 	ProductModel updateProuct(ProductModel productModel);
 
 	ProductModel addProduct(ProductModel productModel);
+
+	List<ProductModel> findAllProducts(String sort, int limit, String category);
+
+	List<ProductModel> findAllProducts(String sort, int limit);
 
 	List<ProductModel> findAllProducts();
 
