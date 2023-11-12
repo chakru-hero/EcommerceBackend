@@ -56,8 +56,6 @@ public class UserAuthProvider {
     }
 
     public Authentication validateToken(String token, String userFromRequest) throws RuntimeException {
-//        Algorithm algorithm = Algorithm.HMAC256(seceretKey);
-//        JWTVerifier verfier = JWT.require(algorithm).build();
         DecodedJWT decoded = getDecodedJWT(token);
         UserModel user = userRepository.findUserModelByUsername(decoded.getIssuer());
         if (Objects.isNull(user) || !user.getUsername().equals(userFromRequest)) {
