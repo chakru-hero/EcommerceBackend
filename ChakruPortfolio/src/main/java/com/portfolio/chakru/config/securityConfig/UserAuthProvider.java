@@ -51,17 +51,24 @@ public class UserAuthProvider {
                 .withIssuedAt(now)
                 .withExpiresAt(validity)
                 .withClaim("Email", user.getEmail())
+                .withClaim("username", user.getUsername())
                 .sign(Algorithm.HMAC256(seceretKey));
     }
 
     public Authentication validateToken(String token, String userFromRequest) throws RuntimeException {
-        Algorithm algorithm = Algorithm.HMAC256(seceretKey);
-        JWTVerifier verfier = JWT.require(algorithm).build();
-        DecodedJWT decoded = verfier.verify(token);
+//        Algorithm algorithm = Algorithm.HMAC256(seceretKey);
+//        JWTVerifier verfier = JWT.require(algorithm).build();
+        DecodedJWT decoded = getDecodedJWT(token);
         UserModel user = userRepository.findUserModelByUsername(decoded.getIssuer());
         if (Objects.isNull(user) || !user.getUsername().equals(userFromRequest)) {
             throw new RuntimeException("Token does not belong to this User");
         }
         return  new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+    }
+
+    public DecodedJWT getDecodedJWT(String token){
+        Algorithm algorithm = Algorithm.HMAC256(seceretKey);
+        JWTVerifier verfier = JWT.require(algorithm).build();
+        return verfier.verify(token);
     }
 }

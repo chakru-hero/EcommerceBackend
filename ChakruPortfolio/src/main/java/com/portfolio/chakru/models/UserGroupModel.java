@@ -1,5 +1,10 @@
 package com.portfolio.chakru.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserGroupModel {
 
 	@Id
@@ -15,21 +24,4 @@ public class UserGroupModel {
 	private String id;
 	@Column(unique=true)
 	private String name;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	
-
-
 }

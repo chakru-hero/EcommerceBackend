@@ -30,7 +30,6 @@ public class StoreController {
     }
         else
             return productService.findAllProducts(sort, limit, category);
-
     }
 
     @GetMapping("/getAllCategories")
