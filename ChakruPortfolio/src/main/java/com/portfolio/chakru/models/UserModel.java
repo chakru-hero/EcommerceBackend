@@ -1,6 +1,10 @@
 package com.portfolio.chakru.models;
 
-import java.util.Collection;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +13,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import java.util.Collection;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(NON_NULL)
 public class UserModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,53 +36,6 @@ public class UserModel {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<UserGroupModel> userGroup;
 	private String imageUrl;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Collection<UserGroupModel> getUserGroup() {
-		return userGroup;
-	}
-
-	public void setUserGroup(Collection<UserGroupModel> userGroup) {
-		this.userGroup = userGroup;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+	private String token;
 
 }

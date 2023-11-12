@@ -1,26 +1,18 @@
 package com.portfolio.chakru.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-
 import com.portfolio.chakru.exceptions.UserNotFoundException;
 import com.portfolio.chakru.models.UserGroupModel;
 import com.portfolio.chakru.models.UserModel;
 import com.portfolio.chakru.repo.UserGroupsRepo;
 import com.portfolio.chakru.repo.UserRepo;
 import com.portfolio.chakru.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService/*, UserDetailsService */{
 
 	@Autowired
 	private UserRepo userRepo;
@@ -78,16 +70,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	    user.getUserGroup().add(usergroups);
 	}
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserModel usermodel = userRepo.findUserModelByUsername(username);
-		if (usermodel == null) {
-			throw new UserNotFoundException("User with ID " + username + " not found.");
-		}
-
-		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		usermodel.getUserGroup().forEach(t -> new SimpleGrantedAuthority(t.getName()));
-		return new User(usermodel.getUsername(), usermodel.getPassword(), authorities);
-	}
+//	@Override
+//	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//		UserModel usermodel = userRepo.findUserModelByUsername(username);
+//		if (usermodel == null) {
+//			throw new UserNotFoundException("User with ID " + username + " not found.");
+//		}
+//
+//		Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+//		usermodel.getUserGroup().forEach(t -> new SimpleGrantedAuthority(t.getName()));
+//		return new User(usermodel.getUsername(), usermodel.getPassword(), authorities);
+//	}
 
 }

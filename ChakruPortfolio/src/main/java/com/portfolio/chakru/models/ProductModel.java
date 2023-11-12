@@ -1,48 +1,26 @@
 package com.portfolio.chakru.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
 
 @Entity
-public class ProductModel{
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class ProductModel {
 
-	@Id
-	@Column	(nullable = false , updatable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private String code;
-	private String name;
-	private String description;
-	private int price;
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-
-	public String getCode() {
-		return code;
-	}
-	public void setCode(String code) {
-		this.code = code;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public int getPrice() {
-		return price;
-	}
-	public void setPrice(int price) {
-		this.price = price;
-	}
-	
-	
-	
+    @Id
+    @Column(nullable = false, updatable = false, name="code")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private String code;
+    private String name;
+    private String description;
+    private int price;
+    private String imageUrl;
+    private String Category;
 }
