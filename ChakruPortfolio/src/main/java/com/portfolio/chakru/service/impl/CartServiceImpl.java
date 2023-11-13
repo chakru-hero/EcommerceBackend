@@ -6,6 +6,7 @@ import com.portfolio.chakru.models.ProductModel;
 import com.portfolio.chakru.models.UserModel;
 import com.portfolio.chakru.repo.CartRepo;
 import com.portfolio.chakru.service.CartService;
+import com.portfolio.chakru.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,14 @@ public class CartServiceImpl implements CartService{
 	
 	@Autowired
 	private CartRepo cartRepo;
-	
+	@Autowired
+	private ProductService productService;
 	@Autowired
 	private CartModel cartModel;
 
 	@Override
-	public CartModel addToCart(ProductModel productModel, UserModel user, int quantity) {
+	public CartModel addToCart(String productCode, UserModel user, int quantity) {
+		ProductModel productModel = productService.findProductModelByCode(productCode);
 		if(cartRepo.findCartModelByUser(user)==null) {
 			CartModel newCart = createCart(productModel,user,quantity);
 		cartRepo.save(newCart);
@@ -52,7 +55,8 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public CartModel removeFromCart(ProductModel productModel, UserModel user) {
+	public CartModel removeFromCart(String productCode, UserModel user) {
+		ProductModel productModel = productService.findProductModelByCode(productCode);
 		CartModel existingcart =  cartRepo.findCartModelByUser(user);
 		existingcart.getCartEntry().removeIf(cartEntryModel -> cartEntryModel.getProduct() == productModel);
 		cartRepo.save(existingcart);

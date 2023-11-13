@@ -7,21 +7,23 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserGroupModel {
-
-	@Id
-	@Column	(nullable = false , updatable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	@Column(unique=true)
-	private String name;
+public class OrderEntryModel {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false , updatable = false)
+    private long id;
+    @OneToOne(targetEntity=ProductModel.class, fetch= FetchType.EAGER)
+    private ProductModel product;
+    private int quantity;
 }

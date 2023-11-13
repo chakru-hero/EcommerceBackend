@@ -2,7 +2,6 @@ package com.portfolio.chakru.controllers;
 
 import com.portfolio.chakru.config.securityConfig.UserAuthProvider;
 import com.portfolio.chakru.models.CartModel;
-import com.portfolio.chakru.models.ProductModel;
 import com.portfolio.chakru.repo.UserRepo;
 import com.portfolio.chakru.service.CartService;
 import lombok.extern.log4j.Log4j2;
@@ -30,16 +29,18 @@ public class CartController {
     private UserRepo userRepo;
 
     @PostMapping("/add")
-    public ResponseEntity<CartModel> addToCart(@RequestParam ProductModel productModel, int quantity , @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
-        String username = userAuthProvider.getDecodedJWT(token).getIssuer();
-        CartModel cartmodel = cartService.addToCart(productModel,userRepo.findUserModelByUsername(username), quantity);
+    public ResponseEntity<CartModel> addToCart(@RequestParam String productCode, int quantity , @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        String[] authElements = token.split(" ");
+        String username = userAuthProvider.getDecodedJWT(authElements[1]).getIssuer();
+        CartModel cartmodel = cartService.addToCart(productCode,userRepo.findUserModelByUsername(username), quantity);
         return new ResponseEntity<>(cartmodel,HttpStatus.OK);
     }
 
     @PostMapping("/remove")
-    public ResponseEntity<CartModel> removeFromCart(@RequestParam ProductModel productModel, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
-        String username = userAuthProvider.getDecodedJWT(token).getIssuer();
-        CartModel cartmodel = cartService.removeFromCart(productModel,userRepo.findUserModelByUsername(username));
+    public ResponseEntity<CartModel> removeFromCart(@RequestParam String productCode, @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        String[] authElements = token.split(" ");
+        String username = userAuthProvider.getDecodedJWT(authElements[1]).getIssuer();
+        CartModel cartmodel = cartService.removeFromCart(productCode,userRepo.findUserModelByUsername(username));
         return new ResponseEntity<>(cartmodel,HttpStatus.OK);
     }
 

@@ -24,7 +24,7 @@ public class CartEntryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false , updatable = false)
-    private String id;
+    private long id;
     @OneToOne(targetEntity=ProductModel.class, fetch= FetchType.EAGER)
     private ProductModel product;
     private int quantity;
