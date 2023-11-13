@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,8 +29,9 @@ public class CartModel {
 	@Column	(nullable = false , updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<CartEntryModel> cartEntry;
 	@OneToOne(targetEntity=UserModel.class, fetch=FetchType.EAGER)
 	private UserModel user;
+	private int cartTotal;
 }
