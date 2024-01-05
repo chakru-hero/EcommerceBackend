@@ -28,6 +28,7 @@ public class SecurityConfig {
                                 .antMatchers(HttpMethod.GET, "/ping").permitAll()
                                 .anyRequest().authenticated()
                 );
+        http.cors();
         return http.build();
     }
 

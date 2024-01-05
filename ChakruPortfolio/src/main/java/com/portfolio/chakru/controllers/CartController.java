@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +30,19 @@ public class CartController {
     private UserRepo userRepo;
 
     @PostMapping("/add")
-    public ResponseEntity<CartModel> addToCart(@RequestParam String productCode, int quantity , @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+    public ResponseEntity<CartModel> addToCart(@RequestParam String productCode, @RequestParam int quantity , @RequestHeader(HttpHeaders.AUTHORIZATION) String token){
         String[] authElements = token.split(" ");
         String username = userAuthProvider.getDecodedJWT(authElements[1]).getIssuer();
         CartModel cartmodel = cartService.addToCart(productCode,userRepo.findUserModelByUsername(username), quantity);
         return new ResponseEntity<>(cartmodel,HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<CartModel> getCartModel(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
+        String[] authElements = token.split(" ");
+        String username = userAuthProvider.getDecodedJWT(authElements[1]).getIssuer();
+        CartModel cartModel = cartService.getCartByUsername(username);
+        return new ResponseEntity<>(cartModel,HttpStatus.OK);
     }
 
     @PostMapping("/remove")
@@ -46,7 +55,8 @@ public class CartController {
 
     @PostMapping("/clear")
     public ResponseEntity clearCart(@RequestHeader(HttpHeaders.AUTHORIZATION) String token){
-        String username = userAuthProvider.getDecodedJWT(token).getIssuer();
+        String[] authElements = token.split(" ");
+        String username = userAuthProvider.getDecodedJWT(authElements[1]).getIssuer();
         cartService.clearCart(userRepo.findUserModelByUsername(username));
         return new ResponseEntity(HttpStatus.OK);
     }
