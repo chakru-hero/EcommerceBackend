@@ -5,6 +5,7 @@ import com.portfolio.chakru.models.CartModel;
 import com.portfolio.chakru.models.ProductModel;
 import com.portfolio.chakru.models.UserModel;
 import com.portfolio.chakru.repo.CartRepo;
+import com.portfolio.chakru.repo.UserRepo;
 import com.portfolio.chakru.service.CartService;
 import com.portfolio.chakru.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class CartServiceImpl implements CartService{
 	private ProductService productService;
 	@Autowired
 	private CartModel cartModel;
+
+	@Autowired
+	private UserRepo userRepository;
 
 	@Override
 	public CartModel addToCart(String productCode, UserModel user, int quantity) {
@@ -52,6 +56,12 @@ public class CartServiceImpl implements CartService{
 			cartRepo.save(existingcart);
 			return existingcart;
 		}
+	}
+
+	@Override
+	public CartModel getCartByUsername(String username) {
+		 UserModel user = userRepository.findUserModelByUsername(username);
+		return cartRepo.findCartModelByUser(user);
 	}
 
 	@Override

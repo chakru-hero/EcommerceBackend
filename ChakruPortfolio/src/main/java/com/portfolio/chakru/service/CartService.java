@@ -7,6 +7,8 @@ import com.portfolio.chakru.models.UserModel;
 public interface CartService {
 
 	CartModel addToCart(String productCode , UserModel user, int quantity);
+
+	CartModel getCartByUsername(String username);
 	
 	CartModel removeFromCart(String productCode, UserModel user);
 
